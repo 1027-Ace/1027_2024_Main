@@ -29,9 +29,9 @@ public class ShooterIntake extends SubsystemBase{
     }
 
     public void controlShooterPlatform() {
-        if (driver.getLeftBumper()) { // Example button for intake
+        if (driver.getLeftBumperPressed()) { // Example button for intake
             Intake();
-        } else if (driver.getRightBumper()) { // Example button for outtake
+        } else if (driver.getRightBumperPressed()) { // Example button for outtake
             Outtake();
         } else {
             stop();
