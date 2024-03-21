@@ -110,7 +110,7 @@ public final class Constants {
         public static final double maxAngularVelocity = 5; // 5.0;
         public static double angleRampRate = 0;
 
-        public static double maxDriveVel = 2;          // for velocity setting, using converted value m/s
+        public static double maxDriveVel = 3;          // for velocity setting, using converted value m/s
         public static double maxDrivePos = 200;          // for position setting, using raw encoder rpm/m
         public static double minVel = 0;
         public static double maxDriveAccVel= 1;          // for velocity setting, using converted value m/ss
