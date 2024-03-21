@@ -58,8 +58,8 @@ public class RobotContainer {
     private final JoystickButton YButton    = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton StartButton    = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton BackButton    = new JoystickButton(driver, XboxController.Button.kBack.value);
-    private final JoystickButton LeftTrigger    = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton RightTrigger    = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton LeftBumper    = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton RightBumper    = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     
 
     /* Subsystems */
@@ -152,8 +152,8 @@ public class RobotContainer {
         autoMove.whileTrue(autoMoveCommand);
         //autoMove.toggleOnFalse(new InstantCommand(() -> autoMoveCommand.cancel()));
 
-        LeftTrigger.onTrue(intake);
-        RightTrigger.onTrue(outtake);
+        LeftBumper.toggleOnTrue(intake);
+        RightBumper.toggleOnTrue(outtake);
     }
 
     /**
