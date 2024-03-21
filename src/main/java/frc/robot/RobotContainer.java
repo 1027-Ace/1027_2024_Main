@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.*;
+import frc.robot.subsystems.shooter.ShooterIntake;
+import frc.robot.subsystems.shooter.ShooterPlatform;
 import frc.robot.subsystems.swerve.SwerveBase;
 
 /**
@@ -30,7 +32,7 @@ public class RobotContainer {
     /* Shuffleboard */
     public static ShuffleboardTab autoTab = Shuffleboard.getTab("Auto");
     /* Controllers */
-    private final Joystick driver = new Joystick(0);
+    public final XboxController driver = new XboxController(0);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -41,6 +43,10 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton autoMove = new JoystickButton(driver, XboxController.Button.kB.value);
 
+    //ShooterPlatform Setup
+    //ShooterPlatform base = new ShooterPlatform(30, 31, driver);
+    ShooterIntake intake = new ShooterIntake(32, driver);
+    
     
     private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
