@@ -87,7 +87,7 @@ public final class Constants {
         public static final double angleKD = 0;
         public static final double angleKFF = 0.000156;
 
-        public static double maxAngleVel = 1;          // for velocity setting, using converted value m/s
+        public static double maxAngleVel = 2;          // for velocity setting, using converted value m/s
         public static double maxAnglePos = 200;          // for position setting, using raw encoder rpm/m
         public static double minAngleVel = 0;
         public static double maxAngleAccVel= 1;          // for velocity setting, using converted value m/ss
@@ -110,7 +110,7 @@ public final class Constants {
         public static final double maxAngularVelocity = 5; // 5.0;
         public static double angleRampRate = 0;
 
-        public static double maxDriveVel = 1;          // for velocity setting, using converted value m/s
+        public static double maxDriveVel = 2;          // for velocity setting, using converted value m/s
         public static double maxDrivePos = 200;          // for position setting, using raw encoder rpm/m
         public static double minVel = 0;
         public static double maxDriveAccVel= 1;          // for velocity setting, using converted value m/ss
