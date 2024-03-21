@@ -157,7 +157,9 @@ public class RobotContainer {
         //RightTrigger.onTrue(outtake);
         
         LeftTrigger.onTrue(new InstantCommand(() -> intakeobj2.Intake()));
+        LeftTrigger.onFalse(new InstantCommand(() -> intakeobj2.stop()));
         RightTrigger.onTrue(new InstantCommand(() -> outtakeobj2.Outtake()));
+        RightTrigger.onFalse(new InstantCommand(() -> outtakeobj2.stop()));
         
     }
 
