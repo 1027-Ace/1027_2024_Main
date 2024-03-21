@@ -47,10 +47,11 @@ public class RobotContainer {
     //ShooterPlatform Setup
     //ShooterPlatform base = new ShooterPlatform(30, 31, driver);
     ShooterIntake intakeobj = new ShooterIntake(32, driver);
-    private final Command intake = Commands.runOnce(()-> intakeobj.Intake());
+    private final Command intake = Commands.run(()-> intakeobj.Intake());
+    ShooterIntake intakeobj2 = new ShooterIntake(32, driver);
     ShooterIntake outtakeobj = new ShooterIntake(32, driver);
-    private final Command outtake = Commands.runOnce(()-> outtakeobj.Outtake());
-
+    private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
+    ShooterIntake outtakeobj2 = new ShooterIntake(32, driver);
     
     //private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
@@ -58,8 +59,8 @@ public class RobotContainer {
     private final JoystickButton YButton    = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton StartButton    = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton BackButton    = new JoystickButton(driver, XboxController.Button.kBack.value);
-    private final JoystickButton LeftBumper    = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton RightBumper    = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton LeftTrigger    = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton RightTrigger    = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     
 
     /* Subsystems */
@@ -152,8 +153,14 @@ public class RobotContainer {
         autoMove.whileTrue(autoMoveCommand);
         //autoMove.toggleOnFalse(new InstantCommand(() -> autoMoveCommand.cancel()));
 
-        LeftBumper.toggleOnTrue(intake);
-        RightBumper.toggleOnTrue(outtake);
+        //LeftTrigger.onTrue(intake);
+        //RightTrigger.onTrue(outtake);
+        
+        LeftTrigger.onTrue(new InstantCommand(() -> intakeobj2.Intake()));
+        LeftTrigger.onFalse(new InstantCommand(() -> intakeobj2.stop()));
+        RightTrigger.onTrue(new InstantCommand(() -> outtakeobj2.Outtake()));
+        RightTrigger.onFalse(new InstantCommand(() -> outtakeobj2.stop()));
+        
     }
 
     /**
