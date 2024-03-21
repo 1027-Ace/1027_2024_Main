@@ -21,6 +21,7 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.shooter.ShooterIntake;
 import frc.robot.subsystems.shooter.ShooterPlatform;
 import frc.robot.subsystems.swerve.SwerveBase;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -45,15 +46,20 @@ public class RobotContainer {
 
     //ShooterPlatform Setup
     //ShooterPlatform base = new ShooterPlatform(30, 31, driver);
-    ShooterIntake intake = new ShooterIntake(32, driver);
+    ShooterIntake intakeobj = new ShooterIntake(32, driver);
+    private final Command intake = Commands.runOnce(()-> intakeobj.Intake());
+    ShooterIntake outtakeobj = new ShooterIntake(32, driver);
+    private final Command outtake = Commands.runOnce(()-> outtakeobj.Outtake());
+
     
-    
-    private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    //private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    //private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton XButton    = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton YButton    = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton StartButton    = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton BackButton    = new JoystickButton(driver, XboxController.Button.kBack.value);
+    private final JoystickButton LeftTrigger    = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton RightTrigger    = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     
 
     /* Subsystems */
@@ -145,6 +151,9 @@ public class RobotContainer {
         //example of auto move
         autoMove.whileTrue(autoMoveCommand);
         //autoMove.toggleOnFalse(new InstantCommand(() -> autoMoveCommand.cancel()));
+
+        LeftTrigger.onTrue(intake);
+        RightTrigger.onTrue(outtake);
     }
 
     /**
