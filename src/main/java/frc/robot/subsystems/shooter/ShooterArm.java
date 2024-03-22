@@ -26,10 +26,15 @@ public class ShooterArm extends SubsystemBase{
         Timer.delay(0.05);
         //motor.set(ControlMode.PercentOutput, 0); 
         motor.stopMotor(); // Stop the motor
+        Timer.delay(1);
+        motor.set(-MAX_SPEED);
+        Timer.delay(0.05);
+        motor.stopMotor();
     }
 
     public void shootreturn() {
         motor.set(-MAX_SPEED);
+        //motor.set(0);
         //motor.set(ControlMode.PercentOutput, -MAX_SPEED);
         // Schedule a task to stop the motor after 0.05 seconds
         Timer.delay(0.05);

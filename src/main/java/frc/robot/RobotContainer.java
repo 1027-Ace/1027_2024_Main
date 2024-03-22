@@ -63,7 +63,7 @@ public class RobotContainer {
     //private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
     //ShooterPlatform upobj = new ShooterPlatform(30, 31);
     //ShooterPlatform downobj = new ShooterPlatform(30, 31);
-    ShooterArm shooter = new ShooterArm(33);
+    ShooterArm shooter = new ShooterArm(39);
     
     //private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
