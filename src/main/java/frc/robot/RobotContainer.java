@@ -23,6 +23,12 @@ import frc.robot.subsystems.shooter.ShooterIntake;
 import frc.robot.subsystems.shooter.ShooterPlatform;
 import frc.robot.subsystems.swerve.SwerveBase;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import frc.robot.subsystems.Pneumatics.PneumaticsSubsystem;
+import frc.robot.subsystems.Pneumatics.IntakeGripper;
+import frc.robot.commands.FetalPositionCommand;
+import frc.robot.commands.HighRowCommand;
+
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -45,19 +51,26 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton autoMove = new JoystickButton(driver, XboxController.Button.kB.value);
 
+    //Base Left motorCANId: 30
+    //Base Right motorCANId: 31
+    //Intake motorCANId: 32
+    //Shooter motorCANId: 33
+
     //ShooterPlatform Setup
     //ShooterPlatform base = new ShooterPlatform(30, 31, driver);
-    ShooterIntake intakeobj = new ShooterIntake(30);
+    //////ShooterIntake intakeobj = new ShooterIntake(30);
+    ShooterIntake intakeobj = new ShooterIntake(32);
     //private final Command intake = Commands.run(()-> intakeobj.Intake());
-    ShooterIntake outtakeobj = new ShooterIntake(30);
+    //ShooterIntake outtakeobj = new ShooterIntake(30);
     //private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
     //ShooterPlatform upobj = new ShooterPlatform(30, 31);
     //ShooterPlatform downobj = new ShooterPlatform(30, 31);
-    //ShooterArm shooter = new ShooterArm(33);
+    ShooterArm shooter = new ShooterArm(33);
     
     //private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton AButton = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton BButton = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton XButton    = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton YButton    = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton StartButton    = new JoystickButton(driver, XboxController.Button.kStart.value);
@@ -68,6 +81,9 @@ public class RobotContainer {
 
     /* Subsystems */
     private final SwerveBase s_Swerve = new SwerveBase();
+    public static final PneumaticsSubsystem pneumaticSubsystem = new PneumaticsSubsystem();
+    public static final IntakeGripper intakeGripper = new IntakeGripper();
+  
 
     /* Commands */
 
@@ -163,8 +179,14 @@ public class RobotContainer {
         
         LeftBumper.onTrue(new InstantCommand(() -> intakeobj.Intake()));
         LeftBumper.onFalse(new InstantCommand(() -> intakeobj.stop()));
-        RightBumper.onTrue(new InstantCommand(() -> outtakeobj.Outtake()));
-        RightBumper.onFalse(new InstantCommand(() -> outtakeobj.stop()));
+        RightBumper.onTrue(new InstantCommand(() -> intakeobj.Outtake()));
+        RightBumper.onFalse(new InstantCommand(() -> intakeobj.stop()));
+        AButton.onTrue(new InstantCommand(() -> shooter.shoot()));
+        BButton.onTrue(new InstantCommand(() -> shooter.shootreturn()));
+        
+        //DRY CODED!!!!!
+        XButton.onTrue(new HighRowCommand());
+        YButton.onTrue(new FetalPositionCommand());
         
         //Test Phrase commands PLATFORM
         /*

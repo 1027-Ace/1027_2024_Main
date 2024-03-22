@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class ShooterIntake extends SubsystemBase{
     private final TalonSRX motor;
     //private final XboxController driver;
-    private final double MAX_SPEED = 0.7; // 10% max speed
+    private final double MAX_SPEED = 0.5; // 50% max speed
 
     public ShooterIntake(int motorCANId) {
         this.motor = new TalonSRX(motorCANId);

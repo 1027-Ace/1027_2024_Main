@@ -208,4 +208,14 @@ public final class Constants {
     public static final class NeoMotorConstants {
         public static final double kFreeSpeedRpm = 5676;
     }
+    public static class IntakeGripperConstants {
+        public static final int kSolenoidForward1 = 0;
+        public static final int kSolenoidReverse1 = 1;
+
+        public static final int kSolenoidForward2 = 2;
+        public static final int kSolenoidReverse2 = 3;
+
+        public static final int kSolenoidForward3 = 4;
+        public static final int kSolenoidReverse3 = 5;
+  }
 }
