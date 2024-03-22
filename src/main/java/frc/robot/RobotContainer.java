@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.*;
+import frc.robot.subsystems.shooter.ShooterArm;
 import frc.robot.subsystems.shooter.ShooterIntake;
 import frc.robot.subsystems.shooter.ShooterPlatform;
 import frc.robot.subsystems.swerve.SwerveBase;
@@ -46,21 +47,23 @@ public class RobotContainer {
 
     //ShooterPlatform Setup
     //ShooterPlatform base = new ShooterPlatform(30, 31, driver);
-    ShooterIntake intakeobj = new ShooterIntake(32, driver);
-    private final Command intake = Commands.run(()-> intakeobj.Intake());
-    ShooterIntake intakeobj2 = new ShooterIntake(32, driver);
-    ShooterIntake outtakeobj = new ShooterIntake(32, driver);
-    private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
-    ShooterIntake outtakeobj2 = new ShooterIntake(32, driver);
+    ShooterIntake intakeobj = new ShooterIntake(32);
+    //private final Command intake = Commands.run(()-> intakeobj.Intake());
+    ShooterIntake outtakeobj = new ShooterIntake(32);
+    //private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
+    ShooterPlatform upobj = new ShooterPlatform(30, 31);
+    ShooterPlatform downobj = new ShooterPlatform(30, 31);
+    ShooterArm shooter = new ShooterArm(33);
     
     //private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton AButton = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton XButton    = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton YButton    = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton StartButton    = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton BackButton    = new JoystickButton(driver, XboxController.Button.kBack.value);
-    private final JoystickButton LeftTrigger    = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton RightTrigger    = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton LeftBumper    = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton RightBumper    = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     
 
     /* Subsystems */
@@ -156,10 +159,20 @@ public class RobotContainer {
         //LeftTrigger.onTrue(intake);
         //RightTrigger.onTrue(outtake);
         
-        LeftTrigger.onTrue(new InstantCommand(() -> intakeobj2.Intake()));
-        LeftTrigger.onFalse(new InstantCommand(() -> intakeobj2.stop()));
-        RightTrigger.onTrue(new InstantCommand(() -> outtakeobj2.Outtake()));
-        RightTrigger.onFalse(new InstantCommand(() -> outtakeobj2.stop()));
+        //Test Phase commands INTAKE
+        /*
+        LeftBumper.onTrue(new InstantCommand(() -> intakeobj.Intake()));
+        LeftBumper.onFalse(new InstantCommand(() -> intakeobj.stop()));
+        RightBumper.onTrue(new InstantCommand(() -> outtakeobj.Outtake()));
+        RightBumper.onFalse(new InstantCommand(() -> outtakeobj.stop()));
+        */
+        //Test Phrase commands PLATFORM
+        LeftBumper.onTrue(new InstantCommand(() -> upobj.moveUp()));
+        LeftBumper.onFalse(new InstantCommand(() -> upobj.stop()));
+        RightBumper.onTrue(new InstantCommand(() -> downobj.moveDown()));
+        RightBumper.onFalse(new InstantCommand(() -> downobj.stop()));
+        //Test Phrase commands SHOOTER
+        AButton.onTrue(new InstantCommand(() -> shooter.shoot()));
         
     }
 
