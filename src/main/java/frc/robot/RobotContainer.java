@@ -46,12 +46,12 @@ public class RobotContainer {
 
     //ShooterPlatform Setup
     //ShooterPlatform base = new ShooterPlatform(30, 31, driver);
-    ShooterIntake intakeobj = new ShooterIntake(32, driver);
-    private final Command intake = Commands.run(()-> intakeobj.Intake());
-    ShooterIntake intakeobj2 = new ShooterIntake(32, driver);
-    ShooterIntake outtakeobj = new ShooterIntake(32, driver);
-    private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
-    ShooterIntake outtakeobj2 = new ShooterIntake(32, driver);
+    //ShooterIntake intakeobj = new ShooterIntake(30, driver);
+    //private final Command intake = Commands.run(()-> intakeobj.Intake());
+    ShooterIntake intakeobj2 = new ShooterIntake(30, driver);
+    //ShooterIntake outtakeobj = new ShooterIntake(30, driver);
+    //private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
+    ShooterIntake outtakeobj2 = new ShooterIntake(30, driver);
     
     //private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
@@ -160,6 +160,7 @@ public class RobotContainer {
         LeftTrigger.onFalse(new InstantCommand(() -> intakeobj2.stop()));
         RightTrigger.onTrue(new InstantCommand(() -> outtakeobj2.Outtake()));
         RightTrigger.onFalse(new InstantCommand(() -> outtakeobj2.stop()));
+
         
     }
 

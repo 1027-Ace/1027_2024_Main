@@ -18,16 +18,18 @@ public class ShooterIntake extends SubsystemBase{
 
     public void Intake() {
         motor.set(ControlMode.PercentOutput, -MAX_SPEED);
+        System.out.print("Intaking");
     }
 
     public void Outtake() {
         motor.set(ControlMode.PercentOutput, MAX_SPEED);
+        System.out.print("Outtaking");
     }
 
     public void stop() {
         motor.set(ControlMode.PercentOutput, 0);
     }
-
+    /*
     public void controlShooterPlatform() {
         if (driver.getLeftBumperPressed()) { // Example button for intake
             Intake();
@@ -37,4 +39,5 @@ public class ShooterIntake extends SubsystemBase{
             stop();
         }
     }
+    */
 }

@@ -12,7 +12,7 @@ import frc.lib.util.swerveUtil.COTSFalconSwerveConstants;
 import frc.lib.util.swerveUtil.RevSwerveModuleConstants;
 
 public final class Constants {
-    public static final double stickDeadband = 0.2;
+    public static final double stickDeadband = 1;
 
     public static final class Swerve {
 
