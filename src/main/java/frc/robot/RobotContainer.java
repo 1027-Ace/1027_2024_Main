@@ -20,11 +20,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.shooter.ShooterArm;
 import frc.robot.subsystems.shooter.ShooterIntake;
-import frc.robot.subsystems.shooter.ShooterPlatform;
 import frc.robot.subsystems.swerve.SwerveBase;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.subsystems.Pneumatics.PneumaticsSubsystem;
-import frc.robot.subsystems.Pneumatics.IntakeGripper;
+import frc.robot.subsystems.Pneumatics.platform;
 import frc.robot.commands.FetalPositionCommand;
 import frc.robot.commands.HighRowCommand;
 
@@ -48,8 +46,8 @@ public class RobotContainer {
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kA.value);
-    private final JoystickButton autoMove = new JoystickButton(driver, XboxController.Button.kB.value);
+    //private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kA.value);
+    //private final JoystickButton autoMove = new JoystickButton(driver, XboxController.Button.kB.value);
 
     //Base Left motorCANId: 30
     //Base Right motorCANId: 31
@@ -81,8 +79,9 @@ public class RobotContainer {
 
     /* Subsystems */
     private final SwerveBase s_Swerve = new SwerveBase();
+
     public static final PneumaticsSubsystem pneumaticSubsystem = new PneumaticsSubsystem();
-    public static final IntakeGripper intakeGripper = new IntakeGripper();
+    public static final platform platform = new platform();
   
 
     /* Commands */
@@ -155,7 +154,7 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        //zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
 
         //cameraDriveMove.onTrue(new CameraDriveCommand(s_Swerve, s_Swerve::getPose));
         //angleDriveMove.onTrue(new AngleDriveCommand(s_Swerve, s_Swerve::getPose));
@@ -169,34 +168,26 @@ public class RobotContainer {
         BackButton.onTrue(m_driveSmartPosition);
 
         //example of auto move
-        autoMove.whileTrue(autoMoveCommand);
+        //autoMove.whileTrue(autoMoveCommand);
         //autoMove.toggleOnFalse(new InstantCommand(() -> autoMoveCommand.cancel()));
 
         //LeftTrigger.onTrue(intake);
         //RightTrigger.onTrue(outtake);
         
         //Test Phase commands INTAKE
-        
         LeftBumper.onTrue(new InstantCommand(() -> intakeobj.Intake()));
         LeftBumper.onFalse(new InstantCommand(() -> intakeobj.stop()));
         RightBumper.onTrue(new InstantCommand(() -> intakeobj.Outtake()));
         RightBumper.onFalse(new InstantCommand(() -> intakeobj.stop()));
+        
+        //Test Phase commands SHOOTER
         AButton.onTrue(new InstantCommand(() -> shooter.shoot()));
         BButton.onTrue(new InstantCommand(() -> shooter.shootreturn()));
         
         //DRY CODED!!!!!
+        //Test Phrase commands PLATFORM
         XButton.onTrue(new HighRowCommand());
         YButton.onTrue(new FetalPositionCommand());
-        
-        //Test Phrase commands PLATFORM
-        /*
-        LeftBumper.onTrue(new InstantCommand(() -> upobj.moveUp()));
-        LeftBumper.onFalse(new InstantCommand(() -> upobj.stop()));
-        RightBumper.onTrue(new InstantCommand(() -> downobj.moveDown()));
-        RightBumper.onFalse(new InstantCommand(() -> downobj.stop()));
-        //Test Phrase commands SHOOTER
-        AButton.onTrue(new InstantCommand(() -> shooter.shoot()));
-        */
     }
 
     /**

@@ -17,9 +17,11 @@ public class FetalPositionCommand extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(() -> RobotContainer.intakeGripper.setClampedSolenoid1(false)),
+      new InstantCommand(() -> RobotContainer.platform.setClampedSolenoid1(false))
+      /*
       new InstantCommand(() -> RobotContainer.intakeGripper.setClampedSolenoid2(false)),
       new InstantCommand(() -> RobotContainer.intakeGripper.setClampedSolenoid3(false))
+      */
     );
   }
 }

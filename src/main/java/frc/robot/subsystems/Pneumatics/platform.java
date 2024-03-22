@@ -4,21 +4,21 @@
 
 package frc.robot.subsystems.Pneumatics;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+//import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-import java.util.function.DoubleSupplier;
+//import java.util.function.DoubleSupplier;
 
-public class IntakeGripper extends SubsystemBase {
+public class platform extends SubsystemBase {
 
-  private final DoubleSolenoid solenoid1 = new DoubleSolenoid(1,PneumaticsModuleType.CTREPCM, Constants.IntakeGripperConstants.kSolenoidForward1, Constants.IntakeGripperConstants.kSolenoidReverse1);
-  private final DoubleSolenoid solenoid2 = new DoubleSolenoid(1,PneumaticsModuleType.CTREPCM, Constants.IntakeGripperConstants.kSolenoidForward2, Constants.IntakeGripperConstants.kSolenoidReverse2);
-  private final DoubleSolenoid solenoid3 = new DoubleSolenoid(1,PneumaticsModuleType.CTREPCM, Constants.IntakeGripperConstants.kSolenoidForward3, Constants.IntakeGripperConstants.kSolenoidReverse3);
+  private final DoubleSolenoid solenoid1 = new DoubleSolenoid(1,PneumaticsModuleType.CTREPCM, Constants.PlatformConstants.kSolenoidForward1, Constants.PlatformConstants.kSolenoidReverse1);
+  //private final DoubleSolenoid solenoid2 = new DoubleSolenoid(1,PneumaticsModuleType.CTREPCM, Constants.IntakeGripperConstants.kSolenoidForward2, Constants.IntakeGripperConstants.kSolenoidReverse2);
+  //private final DoubleSolenoid solenoid3 = new DoubleSolenoid(1,PneumaticsModuleType.CTREPCM, Constants.IntakeGripperConstants.kSolenoidForward3, Constants.IntakeGripperConstants.kSolenoidReverse3);
   /** Constructs a MecanumDrive and resets the gyro. */
-  public IntakeGripper() {
+  public platform() {
 
   }
 
@@ -26,7 +26,7 @@ public class IntakeGripper extends SubsystemBase {
     System.out.println("C:"+clamped);
     solenoid1.set(clamped ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
   }
-
+/*
   public void setClampedSolenoid2(boolean clamped) {
     System.out.println("C:"+clamped);
     solenoid2.set(clamped ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
@@ -36,7 +36,7 @@ public class IntakeGripper extends SubsystemBase {
     System.out.println("C:"+clamped);
     solenoid3.set(clamped ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
   }
-
+*/
   //public CommandBase setClampedCommand(boolean clamped) {
   //  return run(() -> setClampedSolenoid1(clamped));
   //}

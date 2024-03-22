@@ -18,11 +18,13 @@ public class HighRowCommand extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(() -> RobotContainer.intakeGripper.setClampedSolenoid1(true)),
-      new WaitCommand(0.5),
+      new InstantCommand(() -> RobotContainer.platform.setClampedSolenoid1(true))
+      /*
+      new WaitCommand(0.5)
       new InstantCommand(() -> RobotContainer.intakeGripper.setClampedSolenoid2(true)),
       new WaitCommand(0.5),
       new InstantCommand(() -> RobotContainer.intakeGripper.setClampedSolenoid3(true))
+      */
     );
   }
 }
