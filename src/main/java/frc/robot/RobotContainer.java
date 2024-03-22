@@ -47,13 +47,13 @@ public class RobotContainer {
 
     //ShooterPlatform Setup
     //ShooterPlatform base = new ShooterPlatform(30, 31, driver);
-    ShooterIntake intakeobj = new ShooterIntake(32);
+    ShooterIntake intakeobj = new ShooterIntake(30);
     //private final Command intake = Commands.run(()-> intakeobj.Intake());
-    ShooterIntake outtakeobj = new ShooterIntake(32);
+    ShooterIntake outtakeobj = new ShooterIntake(30);
     //private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
-    ShooterPlatform upobj = new ShooterPlatform(30, 31);
-    ShooterPlatform downobj = new ShooterPlatform(30, 31);
-    ShooterArm shooter = new ShooterArm(33);
+    //ShooterPlatform upobj = new ShooterPlatform(30, 31);
+    //ShooterPlatform downobj = new ShooterPlatform(30, 31);
+    //ShooterArm shooter = new ShooterArm(33);
     
     //private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
@@ -160,20 +160,21 @@ public class RobotContainer {
         //RightTrigger.onTrue(outtake);
         
         //Test Phase commands INTAKE
-        /*
+        
         LeftBumper.onTrue(new InstantCommand(() -> intakeobj.Intake()));
         LeftBumper.onFalse(new InstantCommand(() -> intakeobj.stop()));
         RightBumper.onTrue(new InstantCommand(() -> outtakeobj.Outtake()));
         RightBumper.onFalse(new InstantCommand(() -> outtakeobj.stop()));
-        */
+        
         //Test Phrase commands PLATFORM
+        /*
         LeftBumper.onTrue(new InstantCommand(() -> upobj.moveUp()));
         LeftBumper.onFalse(new InstantCommand(() -> upobj.stop()));
         RightBumper.onTrue(new InstantCommand(() -> downobj.moveDown()));
         RightBumper.onFalse(new InstantCommand(() -> downobj.stop()));
         //Test Phrase commands SHOOTER
         AButton.onTrue(new InstantCommand(() -> shooter.shoot()));
-        
+        */
     }
 
     /**
