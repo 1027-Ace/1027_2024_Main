@@ -19,11 +19,11 @@ public class PneumaticsSubsystem extends SubsystemBase {
     compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
 
     System.out.println("===== Activating compressor!! =====");
-    activateCompressor();
+    //activateCompressor();
   }
 
   public void activateCompressor() {
-    compressor.enableDigital();
+    //compressor.enableDigital();
   }
 
   public void deactivateCompressor() {
