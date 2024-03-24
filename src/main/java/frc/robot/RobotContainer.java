@@ -160,12 +160,13 @@ public class RobotContainer {
         //angleDriveMove.onTrue(new AngleDriveCommand(s_Swerve, s_Swerve::getPose));
 
         // Kinematics method
-        XButton.onTrue(m_driveHeading);
-        YButton.onTrue(m_driveSmartPositionPoint);
+        BackButton.onTrue(m_driveHeading);
+        //YButton.onTrue(m_driveSmartPositionPoint);
 
         // Manual method
-        StartButton.onTrue(m_driveSmartDirection);
-        BackButton.onTrue(m_driveSmartPosition);
+        //StartButton.onTrue(m_driveSmartDirection);
+        //BackButton.onTrue(m_driveSmartPosition);
+        StartButton.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
 
         //example of auto move
         //autoMove.whileTrue(autoMoveCommand);
@@ -182,12 +183,13 @@ public class RobotContainer {
         
         //Test Phase commands SHOOTER
         AButton.onTrue(new InstantCommand(() -> shooter.shoot()));
-        BButton.onTrue(new InstantCommand(() -> shooter.shootreturn()));
+        //BButton.onTrue(new InstantCommand(() -> shooter.shootForce()));
+        //BButton.onFalse(new InstantCommand(() -> shooter.stopShooter()));
         
         //DRY CODED!!!!!
         //Test Phrase commands PLATFORM
-        XButton.onTrue(new HighRowCommand());
-        YButton.onTrue(new FetalPositionCommand());
+        YButton.onTrue(new HighRowCommand());
+        XButton.onTrue(new FetalPositionCommand());
     }
 
     /**

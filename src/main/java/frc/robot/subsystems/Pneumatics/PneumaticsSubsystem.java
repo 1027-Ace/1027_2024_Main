@@ -16,14 +16,14 @@ public class PneumaticsSubsystem extends SubsystemBase {
   //private PneumaticHub pneumaticsHub =new PneumaticHub(1);
   
   public PneumaticsSubsystem() {
-    compressor = new Compressor(1, PneumaticsModuleType.CTREPCM);
+    compressor = new Compressor(52, PneumaticsModuleType.CTREPCM);
 
     System.out.println("===== Activating compressor!! =====");
-    //activateCompressor();
+    activateCompressor();
   }
 
   public void activateCompressor() {
-    //compressor.enableDigital();
+    compressor.enableDigital();
   }
 
   public void deactivateCompressor() {

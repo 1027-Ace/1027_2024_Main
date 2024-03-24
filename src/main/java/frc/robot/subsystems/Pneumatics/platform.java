@@ -14,7 +14,7 @@ import frc.robot.Constants;
 
 public class platform extends SubsystemBase {
 
-  private final DoubleSolenoid solenoid1 = new DoubleSolenoid(1,PneumaticsModuleType.CTREPCM, Constants.PlatformConstants.kSolenoidForward1, Constants.PlatformConstants.kSolenoidReverse1);
+  private final DoubleSolenoid solenoid1 = new DoubleSolenoid(52,PneumaticsModuleType.CTREPCM, Constants.PlatformConstants.kSolenoidForward1, Constants.PlatformConstants.kSolenoidReverse1);
   //private final DoubleSolenoid solenoid2 = new DoubleSolenoid(1,PneumaticsModuleType.CTREPCM, Constants.IntakeGripperConstants.kSolenoidForward2, Constants.IntakeGripperConstants.kSolenoidReverse2);
   //private final DoubleSolenoid solenoid3 = new DoubleSolenoid(1,PneumaticsModuleType.CTREPCM, Constants.IntakeGripperConstants.kSolenoidForward3, Constants.IntakeGripperConstants.kSolenoidReverse3);
   /** Constructs a MecanumDrive and resets the gyro. */
