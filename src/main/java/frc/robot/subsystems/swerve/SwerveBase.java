@@ -345,10 +345,12 @@ public class SwerveBase extends SubsystemBase {
 
     public void zeroGyro(double deg) {
         gyro.reset();
+        
     }
 
     public void zeroGyro() {
        zeroGyro(0);
+       System.out.print("===");
     }
 
     public Rotation2d getYaw() {

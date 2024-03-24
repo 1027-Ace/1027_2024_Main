@@ -39,6 +39,7 @@ public class RobotContainer {
     public static ShuffleboardTab autoTab = Shuffleboard.getTab("Auto");
     /* Controllers */
     public final XboxController driver = new XboxController(0);
+    public final XboxController operator = new XboxController(1);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;

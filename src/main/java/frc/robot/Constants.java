@@ -12,7 +12,7 @@ import frc.lib.util.swerveUtil.COTSFalconSwerveConstants;
 import frc.lib.util.swerveUtil.RevSwerveModuleConstants;
 
 public final class Constants {
-    public static final double stickDeadband = 0.09;
+    public static final double stickDeadband = 0.1;
 
     public static final class Swerve {
 
@@ -130,7 +130,7 @@ public final class Constants {
                 public static final int driveMotorID = 2;
                 public static final int angleMotorID = 1;
                 public static final int canCoderID = 12;
-                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(82.23);// 180: 162.24);
+                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(81.91);// 180: 162.24);
                 public static final RevSwerveModuleConstants constants = new RevSwerveModuleConstants(driveMotorID,
                         angleMotorID, canCoderID, angleOffset);
             }
@@ -140,7 +140,7 @@ public final class Constants {
                 public static final int driveMotorID = 3;
                 public static final int angleMotorID = 4;
                 public static final int canCoderID = 11;
-                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(178.77);// 180:-165.74);;
+                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(179.12);// 180:-165.74);;
                 public static final RevSwerveModuleConstants constants = new RevSwerveModuleConstants(driveMotorID,
                         angleMotorID, canCoderID, angleOffset);
             }
@@ -150,7 +150,7 @@ public final class Constants {
                 public static final int driveMotorID = 6;
                 public static final int angleMotorID = 5;
                 public static final int canCoderID = 13;
-                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(337.14); // 180: 94.02);
+                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(342.04); // 180: 94.02);
                 public static final RevSwerveModuleConstants constants = new RevSwerveModuleConstants(driveMotorID,
                         angleMotorID, canCoderID, angleOffset);
             }
@@ -160,7 +160,7 @@ public final class Constants {
                 public static final int driveMotorID = 8;
                 public static final int angleMotorID = 7;
                 public static final int canCoderID = 14;
-                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(134.12);
+                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(139.22);
                 public static final RevSwerveModuleConstants constants = new RevSwerveModuleConstants(driveMotorID,
                         angleMotorID, canCoderID, angleOffset);
             }
@@ -177,7 +177,7 @@ public final class Constants {
                         Units.inchesToMeters(22.125)),
                 new Rotation3d(ROLL, PITCH, YAW)).inverse();
 
-        public static final String CAMERA_NAME = "CSI";
+        public static final String CAMERA_NAME = "Camera_Module_v1";
         public static final double LARGEST_DISTANCE = 0.1;
     }
 

@@ -36,9 +36,9 @@ public class ShooterArm extends SubsystemBase{
 
         motor.stopMotor(); // Stop te motor
         
-        Timer.delay(1);
-        motor.set(-MAX_SPEED/8);
-        Timer.delay(delay*7);
+        Timer.delay(0.1);
+        motor.set(-MAX_SPEED/6);
+        Timer.delay(delay*5);
         motor.stopMotor();
         
         
