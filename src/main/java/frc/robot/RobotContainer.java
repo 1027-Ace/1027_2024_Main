@@ -116,6 +116,16 @@ public class RobotContainer {
             false
     );
 
+    AngleDriveCommand autoAngleDrive = new AngleDriveCommand(
+        s_Swerve,
+        s_Swerve::getPose
+    );
+
+    CameraDriveCommand autoCameraDrive = new CameraDriveCommand(
+        s_Swerve, 
+        s_Swerve::getPose
+    );
+
     /* Network Tables Elements */
 
     SendableChooser<Command> movementChooser = new SendableChooser<Command>();
