@@ -1,24 +1,28 @@
 package frc.robot.subsystems.shooter;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.Pneumatics.PneumaticsSubsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class ShooterIntake extends SubsystemBase{
+    private final XboxController operator;
     private final TalonSRX motor;
-    //private final XboxController driver;
-    private final double MAX_SPEED = 0.8; // 50% max speed
+    private double MAX_SPEED = 0.8;
 
-    public ShooterIntake(int motorCANId) {
+
+    public ShooterIntake(int motorCANId, XboxController controller) {
         this.motor = new TalonSRX(motorCANId);
-        //this.driver = driver;
+        this.operator = controller;
     }
 
     public void Intake() {
-        
-        motor.set(ControlMode.PercentOutput, -MAX_SPEED);
+        double speed = 0.8;
+        if(operator.getLeftTriggerAxis()>=0.5 || operator.getRightTriggerAxis()>=0.5){
+            speed = MAX_SPEED/3;
+        }
+        motor.set(ControlMode.PercentOutput, -speed);
         System.out.print("INTAKE");
     }
 

@@ -24,6 +24,7 @@ public final class Constants {
         public static final double drivePower = 1;
         public static final double anglePower = .9;
 
+
         
         // Gyro
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
@@ -110,10 +111,10 @@ public final class Constants {
         public static final double maxAngularVelocity = 11; // 5.0;
         public static double angleRampRate = 0;
 
-        public static double maxDriveVel = 20;          // for velocity setting, using converted value m/s
+        public static double maxDriveVel = 3;          // for velocity setting, using converted value m/s
         public static double maxDrivePos = 300;          // for position setting, using raw encoder rpm/m
         public static double minVel = 0;
-        public static double maxDriveAccVel= 15;          // for velocity setting, using converted value m/ss
+        public static double maxDriveAccVel= 10;          // for velocity setting, using converted value m/ss
         public static double maxDriveAccPos = 300;        // for position setting, using raw encoder rpm/mm
         public static double allowedDriveErrVel = 0.21;
         public static double allowedDriveErrPos = 0.1;
@@ -130,7 +131,7 @@ public final class Constants {
                 public static final int driveMotorID = 2;
                 public static final int angleMotorID = 1;
                 public static final int canCoderID = 12;
-                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(81.91);// 180: 162.24);
+                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(87.01);// 180: 162.24);
                 public static final RevSwerveModuleConstants constants = new RevSwerveModuleConstants(driveMotorID,
                         angleMotorID, canCoderID, angleOffset);
             }
@@ -140,7 +141,7 @@ public final class Constants {
                 public static final int driveMotorID = 3;
                 public static final int angleMotorID = 4;
                 public static final int canCoderID = 11;
-                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(179.12);// 180:-165.74);;
+                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(184.13);// 180:-165.74);;
                 public static final RevSwerveModuleConstants constants = new RevSwerveModuleConstants(driveMotorID,
                         angleMotorID, canCoderID, angleOffset);
             }
@@ -150,7 +151,7 @@ public final class Constants {
                 public static final int driveMotorID = 6;
                 public static final int angleMotorID = 5;
                 public static final int canCoderID = 13;
-                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(342.04); // 180: 94.02);
+                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(334.74); // 180: 94.02);
                 public static final RevSwerveModuleConstants constants = new RevSwerveModuleConstants(driveMotorID,
                         angleMotorID, canCoderID, angleOffset);
             }
@@ -160,7 +161,7 @@ public final class Constants {
                 public static final int driveMotorID = 8;
                 public static final int angleMotorID = 7;
                 public static final int canCoderID = 14;
-                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(139.22);
+                public static final Rotation2d angleOffset = Rotation2d.fromDegrees(146.16);
                 public static final RevSwerveModuleConstants constants = new RevSwerveModuleConstants(driveMotorID,
                         angleMotorID, canCoderID, angleOffset);
             }

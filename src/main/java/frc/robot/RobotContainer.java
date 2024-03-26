@@ -58,7 +58,7 @@ public class RobotContainer {
     //ShooterPlatform Setup
     //ShooterPlatform base = new ShooterPlatform(30, 31, driver);
     //////ShooterIntake intakeobj = new ShooterIntake(30);
-    ShooterIntake intakeobj = new ShooterIntake(32);
+    ShooterIntake intakeobj = new ShooterIntake(32,operator);
     //private final Command intake = Commands.run(()-> intakeobj.Intake());
     //ShooterIntake outtakeobj = new ShooterIntake(30);
     //private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
@@ -68,14 +68,14 @@ public class RobotContainer {
     
     //private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton AButton = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton AButton = new JoystickButton(operator, XboxController.Button.kA.value);
     private final JoystickButton BButton = new JoystickButton(driver, XboxController.Button.kB.value);
-    private final JoystickButton XButton    = new JoystickButton(driver, XboxController.Button.kX.value);
-    private final JoystickButton YButton    = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton XButton    = new JoystickButton(operator, XboxController.Button.kX.value);
+    private final JoystickButton YButton    = new JoystickButton(operator, XboxController.Button.kY.value);
     private final JoystickButton StartButton    = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton BackButton    = new JoystickButton(driver, XboxController.Button.kBack.value);
-    private final JoystickButton LeftBumper    = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton RightBumper    = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton LeftBumper    = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton RightBumper    = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
     
 
     /* Subsystems */
@@ -112,7 +112,7 @@ public class RobotContainer {
     DriveToPoseCommand autoMoveCommand = new DriveToPoseCommand(
             s_Swerve,
             s_Swerve::getPose,
-            new Pose2d(1, 1, Rotation2d.fromDegrees(0)),
+            new Pose2d(1, 1, Rotation2d.fromDegrees(180)),
             false
     );
 
@@ -186,6 +186,7 @@ public class RobotContainer {
         AButton.onTrue(new InstantCommand(() -> shooter.shoot()));
         //BButton.onTrue(new InstantCommand(() -> shooter.shootForce()));
         //BButton.onFalse(new InstantCommand(() -> shooter.stopShooter()));
+        BButton.onTrue(autoMoveCommand);
         
         //DRY CODED!!!!!
         //Test Phrase commands PLATFORM
