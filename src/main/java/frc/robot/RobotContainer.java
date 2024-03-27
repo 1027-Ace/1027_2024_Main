@@ -112,7 +112,7 @@ public class RobotContainer {
     DriveToPoseCommand autoMoveCommand = new DriveToPoseCommand(
             s_Swerve,
             s_Swerve::getPose,
-            new Pose2d(1, 1, Rotation2d.fromDegrees(180)),
+            new Pose2d(2, 0, Rotation2d.fromDegrees(0)),
             false
     );
 
@@ -146,7 +146,11 @@ public class RobotContainer {
         /* Auto */
         //PathPlannerServer.startServer(5811);
         //movementChooser.setDefaultOption("taxi", new Taxi(s_Swerve));
-        movementChooser.addOption("No Movement", new InstantCommand());
+        movementChooser.addOption("Nothing", new InstantCommand());
+        movementChooser.addOption("Taxi", autoMoveCommand);
+        movementChooser.addOption("autoAngleDrive", autoAngleDrive);
+        movementChooser.addOption("autoCameraDrive", autoAngleDrive);
+        
         //SmartDashboard.putData("Movement", movementChooser);
 
         /* Networking */
@@ -196,7 +200,7 @@ public class RobotContainer {
         AButton.onTrue(new InstantCommand(() -> shooter.shoot()));
         //BButton.onTrue(new InstantCommand(() -> shooter.shootForce()));
         //BButton.onFalse(new InstantCommand(() -> shooter.stopShooter()));
-        BButton.onTrue(autoMoveCommand);
+        BButton.onTrue(m_driveHeading);
         
         //DRY CODED!!!!!
         //Test Phrase commands PLATFORM
@@ -210,7 +214,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return movementChooser.getSelected();
+        return autoMoveCommand;
     }
 
     public SwerveBase getSwerveBase() {
