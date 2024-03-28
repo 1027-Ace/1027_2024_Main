@@ -1,5 +1,7 @@
 package frc.robot;
 
+import org.ejml.simple.AutomaticSimpleMatrixConvert;
+
 //import com.pathplanner.lib.server.PathPlannerServer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -23,8 +25,6 @@ import frc.robot.subsystems.shooter.ShooterIntake;
 import frc.robot.subsystems.swerve.SwerveBase;
 import frc.robot.subsystems.Pneumatics.PneumaticsSubsystem;
 import frc.robot.subsystems.Pneumatics.platform;
-import frc.robot.commands.FetalPositionCommand;
-import frc.robot.commands.HighRowCommand;
 
 
 
@@ -64,7 +64,7 @@ public class RobotContainer {
     //private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
     //ShooterPlatform upobj = new ShooterPlatform(30, 31);
     //ShooterPlatform downobj = new ShooterPlatform(30, 31);
-    ShooterArm shooter = new ShooterArm(39);
+    public static ShooterArm shooter = new ShooterArm(39);
     
     //private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
@@ -80,6 +80,7 @@ public class RobotContainer {
 
     /* Subsystems */
     private final SwerveBase s_Swerve = new SwerveBase();
+
 
     public static final PneumaticsSubsystem pneumaticSubsystem = new PneumaticsSubsystem();
     public static final platform platform = new platform();
@@ -126,9 +127,13 @@ public class RobotContainer {
         s_Swerve::getPose
     );
 
+    Auto_OneNoteMove Shoot_Auto = new Auto_OneNoteMove(autoMoveCommand);
+    Auto_DoNothing DoNothing = new Auto_DoNothing();
+
     /* Network Tables Elements */
 
-    SendableChooser<Command> movementChooser = new SendableChooser<Command>();
+    //SendableChooser<Command> movementChooser = new SendableChooser<Command>();
+    SendableChooser<String> AutonomousChooser;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -140,16 +145,24 @@ public class RobotContainer {
                 () -> driver.getRawAxis(strafeAxis),
                 () -> driver.getRawAxis(rotationAxis),
                 () -> driver.getRawButtonPressed(XboxController.Button.kY.value),
-                () -> false
+                () -> true
             )
         );
         /* Auto */
         //PathPlannerServer.startServer(5811);
         //movementChooser.setDefaultOption("taxi", new Taxi(s_Swerve));
-        movementChooser.addOption("Nothing", new InstantCommand());
-        movementChooser.addOption("Taxi", autoMoveCommand);
-        movementChooser.addOption("autoAngleDrive", autoAngleDrive);
-        movementChooser.addOption("autoCameraDrive", autoAngleDrive);
+
+        //movementChooser.addOption("Nothing", new InstantCommand());
+        AutonomousChooser = new SendableChooser<>();
+        AutonomousChooser.setDefaultOption("Nothing", "nothing");
+        //movementChooser.addOption("Taxi", autoMoveCommand);
+        AutonomousChooser.addOption("Taxi", "autoMoveCommand");
+        //movementChooser.addOption("Shoot", Shoot_Auto);
+        AutonomousChooser.addOption("Shoot", "Shoot_Auto");
+        //movementChooser.addOption("autoAngleDrive", autoAngleDrive);
+        //movementChooser.addOption("autoCameraDrive", autoAngleDrive);
+        
+        Shuffleboard.getTab("Drive Time").add("Autonomous Chooser", AutonomousChooser);
         
         //SmartDashboard.putData("Movement", movementChooser);
 
@@ -175,7 +188,7 @@ public class RobotContainer {
         //angleDriveMove.onTrue(new AngleDriveCommand(s_Swerve, s_Swerve::getPose));
 
         // Kinematics method
-        BackButton.onTrue(m_driveHeading);
+        //BackButton.onTrue(m_driveHeading);
         //YButton.onTrue(m_driveSmartPositionPoint);
 
         // Manual method
@@ -200,7 +213,7 @@ public class RobotContainer {
         AButton.onTrue(new InstantCommand(() -> shooter.shoot()));
         //BButton.onTrue(new InstantCommand(() -> shooter.shootForce()));
         //BButton.onFalse(new InstantCommand(() -> shooter.stopShooter()));
-        BButton.onTrue(m_driveHeading);
+        //BButton.onTrue(m_driveHeading);
         
         //DRY CODED!!!!!
         //Test Phrase commands PLATFORM
@@ -213,8 +226,32 @@ public class RobotContainer {
      *
      * @return the command to run in autonomous
      */
+    /*
     public Command getAutonomousCommand() {
         return autoMoveCommand;
+    }
+    */
+    public Command getAutonomousCommand(){
+    
+        String selectedRoutine = AutonomousChooser.getSelected();
+        System.out.println("-----" + selectedRoutine + "-------");
+        Command autonomousCommand = null;
+
+        if(selectedRoutine.equals("nothing")){
+            autonomousCommand = DoNothing;
+        }
+        else if(selectedRoutine.equals("Shoot_Auto")){
+            autonomousCommand = Shoot_Auto;
+        }
+        else if(selectedRoutine.equals("autoMoveCommand")){
+            autonomousCommand = autoMoveCommand;
+        }
+        else{
+            System.out.println("Error: Not picking up any autonomous chooser options");
+            autonomousCommand = DoNothing;
+        }
+        
+        return autonomousCommand;
     }
 
     public SwerveBase getSwerveBase() {
