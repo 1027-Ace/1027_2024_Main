@@ -1,6 +1,7 @@
 package frc.robot.subsystems.shooter;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -24,6 +25,10 @@ public class ShooterIntake extends SubsystemBase{
         }
         motor.set(ControlMode.PercentOutput, -speed);
         System.out.print("INTAKE");
+    }
+
+    public Command Auto_Intake_Command(){
+        return this.runOnce(() -> Intake());
     }
 
     public void Outtake() {

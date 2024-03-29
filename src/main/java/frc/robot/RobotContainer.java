@@ -58,7 +58,7 @@ public class RobotContainer {
     //ShooterPlatform Setup
     //ShooterPlatform base = new ShooterPlatform(30, 31, driver);
     //////ShooterIntake intakeobj = new ShooterIntake(30);
-    ShooterIntake intakeobj = new ShooterIntake(32,operator);
+    public ShooterIntake intakeobj = new ShooterIntake(32,operator);
     //private final Command intake = Commands.run(()-> intakeobj.Intake());
     //ShooterIntake outtakeobj = new ShooterIntake(30);
     //private final Command outtake = Commands.run(()-> outtakeobj.Outtake());
@@ -127,7 +127,9 @@ public class RobotContainer {
         s_Swerve::getPose
     );
 
-    Auto_OneNoteMove Shoot_Auto = new Auto_OneNoteMove(autoMoveCommand);
+    //List of availble Auto's
+    Auto_TwoNote twonote = new Auto_TwoNote(s_Swerve);
+    Auto_OneNote Shoot_Auto = new Auto_OneNote(s_Swerve);
     Auto_DoNothing DoNothing = new Auto_DoNothing();
 
     /* Network Tables Elements */
@@ -159,6 +161,7 @@ public class RobotContainer {
         AutonomousChooser.addOption("Taxi", "autoMoveCommand");
         //movementChooser.addOption("Shoot", Shoot_Auto);
         AutonomousChooser.addOption("Shoot", "Shoot_Auto");
+        AutonomousChooser.addOption("Two Note", "twonote");
         //movementChooser.addOption("autoAngleDrive", autoAngleDrive);
         //movementChooser.addOption("autoCameraDrive", autoAngleDrive);
         
@@ -234,7 +237,7 @@ public class RobotContainer {
     public Command getAutonomousCommand(){
     
         String selectedRoutine = AutonomousChooser.getSelected();
-        System.out.println("-----" + selectedRoutine + "-------");
+        System.out.println("-------" + selectedRoutine + "-------");
         Command autonomousCommand = null;
 
         if(selectedRoutine.equals("nothing")){
@@ -245,6 +248,9 @@ public class RobotContainer {
         }
         else if(selectedRoutine.equals("autoMoveCommand")){
             autonomousCommand = autoMoveCommand;
+        }
+        else if(selectedRoutine.equals("twonote")){
+            autonomousCommand = twonote;
         }
         else{
             System.out.println("Error: Not picking up any autonomous chooser options");
