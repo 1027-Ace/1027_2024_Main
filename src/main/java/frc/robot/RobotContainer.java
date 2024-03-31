@@ -1,17 +1,23 @@
 package frc.robot;
 
-import org.ejml.simple.AutomaticSimpleMatrixConvert;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.HttpCamera;
+import edu.wpi.first.hal.simulation.CTREPCMDataJNI;
 //import com.pathplanner.lib.server.PathPlannerServer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.net.PortForwarder;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.simulation.CTREPCMSim;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,6 +29,7 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.shooter.ShooterArm;
 import frc.robot.subsystems.shooter.ShooterIntake;
 import frc.robot.subsystems.swerve.SwerveBase;
+import frc.robot.subsystems.LimeLight.LLDashBoard;
 import frc.robot.subsystems.Pneumatics.PneumaticsSubsystem;
 import frc.robot.subsystems.Pneumatics.platform;
 
@@ -69,6 +76,7 @@ public class RobotContainer {
     //private final JoystickButton cameraDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton angleDriveMove = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton AButton = new JoystickButton(operator, XboxController.Button.kA.value);
+    private final JoystickButton alignButton = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton BButton = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton XButton    = new JoystickButton(operator, XboxController.Button.kX.value);
     private final JoystickButton YButton    = new JoystickButton(operator, XboxController.Button.kY.value);
@@ -84,7 +92,7 @@ public class RobotContainer {
 
     public static final PneumaticsSubsystem pneumaticSubsystem = new PneumaticsSubsystem();
     public static final platform platform = new platform();
-  
+    public final LLDashBoard limelight;
 
     /* Commands */
 
@@ -128,9 +136,12 @@ public class RobotContainer {
     );
 
     //List of availble Auto's
-    Auto_TwoNote twonote = new Auto_TwoNote(s_Swerve);
-    Auto_OneNote Shoot_Auto = new Auto_OneNote(s_Swerve);
     Auto_DoNothing DoNothing = new Auto_DoNothing();
+    InstantCommand ShootOnly = new InstantCommand(() -> shooter.shoot());
+    Auto_OneNote onenote = new Auto_OneNote(s_Swerve);
+    Auto_TwoNote twonote = new Auto_TwoNote(s_Swerve);
+    
+    
 
     /* Network Tables Elements */
 
@@ -153,25 +164,39 @@ public class RobotContainer {
         /* Auto */
         //PathPlannerServer.startServer(5811);
         //movementChooser.setDefaultOption("taxi", new Taxi(s_Swerve));
-
+        limelight = new LLDashBoard();
         //movementChooser.addOption("Nothing", new InstantCommand());
         AutonomousChooser = new SendableChooser<>();
         AutonomousChooser.setDefaultOption("Nothing", "nothing");
+        AutonomousChooser.addOption("Shoot Only", "ShootOnly");
         //movementChooser.addOption("Taxi", autoMoveCommand);
         AutonomousChooser.addOption("Taxi", "autoMoveCommand");
         //movementChooser.addOption("Shoot", Shoot_Auto);
-        AutonomousChooser.addOption("Shoot", "Shoot_Auto");
+        AutonomousChooser.addOption("One Note", "onenote");
         AutonomousChooser.addOption("Two Note", "twonote");
         //movementChooser.addOption("autoAngleDrive", autoAngleDrive);
         //movementChooser.addOption("autoCameraDrive", autoAngleDrive);
+        //CameraServer.startAutomaticCapture("limelightfeed","http://limelight.local:5800");
         
+       //Shuffleboard.getTab("Drive Time").addDouble("Battery Voltage", );
+
+        HttpCamera LLFeed = new HttpCamera("LimeLight Feed", "http://limelight.local:5800/stream.mjpg");
+        HttpCamera PhotonCamera = new HttpCamera("PhotonVision Feed", "http://10.10.27.11:5800/");
+        LLFeed.setFPS(15);
+        PhotonCamera.setFPS(20);
+
+        Shuffleboard.getTab("Drive Time").add(LLFeed);
+        Shuffleboard.getTab("Drive Time").add(PhotonCamera);
+
         Shuffleboard.getTab("Drive Time").add("Autonomous Chooser", AutonomousChooser);
-        
+        //Shuffleboard Game Time Data
         //SmartDashboard.putData("Movement", movementChooser);
 
         /* Networking */
-        PortForwarder.add(5800, "10.10.27.40", 5800);
-        PortForwarder.add(1181, "10.10.27.40", 1181);
+        //PhotonVision
+        PortForwarder.add(5800, "10.10.27.11", 5800);
+        //Limelight Vision
+        PortForwarder.add(5800, "10.10.27.10", 5800);
 
         // Configure the button bindings
         configureButtonBindings();
@@ -186,7 +211,8 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         //zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-
+        
+        //alignButton.onTrue(new AlignWithAprilTagCommand(s_Swerve,limelight));
         //cameraDriveMove.onTrue(new CameraDriveCommand(s_Swerve, s_Swerve::getPose));
         //angleDriveMove.onTrue(new AngleDriveCommand(s_Swerve, s_Swerve::getPose));
 
@@ -243,8 +269,11 @@ public class RobotContainer {
         if(selectedRoutine.equals("nothing")){
             autonomousCommand = DoNothing;
         }
-        else if(selectedRoutine.equals("Shoot_Auto")){
-            autonomousCommand = Shoot_Auto;
+        else if(selectedRoutine.equals("ShootOnly")){
+            autonomousCommand = ShootOnly;
+        }
+        else if(selectedRoutine.equals("onenote")){
+            autonomousCommand = onenote;
         }
         else if(selectedRoutine.equals("autoMoveCommand")){
             autonomousCommand = autoMoveCommand;
@@ -256,7 +285,6 @@ public class RobotContainer {
             System.out.println("Error: Not picking up any autonomous chooser options");
             autonomousCommand = DoNothing;
         }
-        
         return autonomousCommand;
     }
 

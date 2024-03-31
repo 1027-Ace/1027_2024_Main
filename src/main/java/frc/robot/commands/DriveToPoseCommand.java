@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.swerve.SwerveBase;
 
 import java.util.Optional;
+import edu.wpi.first.wpilibj.Timer;
 import java.util.function.Supplier;
 
 import static frc.robot.Constants.AutoConstants.*;
@@ -27,6 +28,9 @@ public class DriveToPoseCommand extends Command {
     private static final double TRANSLATION_TOLERANCE = 0.005;
     private static final double THETA_TOLERANCE = Units.degreesToRadians(2.0);
     private static final double FIELD_WIDTH_METERS = 8.0137;
+
+    private double startTime;
+    private final double timeoutSeconds = 8.0;
 
     /** Default constraints are 90% of max speed, accelerate to full speed in 1/3 second */
     private static final TrapezoidProfile.Constraints DEFAULT_XY_CONSTRAINTS = new TrapezoidProfile.Constraints(
@@ -100,7 +104,9 @@ public class DriveToPoseCommand extends Command {
         }
         thetaController.setGoal(pose.getRotation().getRadians());
         xController.setGoal(pose.getX());
-        yController.setGoal(pose.getY());  }
+        yController.setGoal(pose.getY());
+        startTime = Timer.getFPGATimestamp();  
+    }
 
     public boolean atGoal() {
         return xController.atGoal() && yController.atGoal() && thetaController.atGoal();
@@ -139,7 +145,8 @@ public class DriveToPoseCommand extends Command {
 
     @Override
     public boolean isFinished() {
-        return atGoal();
+        double currentTime = Timer.getFPGATimestamp();
+        return atGoal() || (currentTime-startTime) >= timeoutSeconds;
     }
 
     @Override

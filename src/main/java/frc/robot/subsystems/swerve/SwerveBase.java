@@ -13,6 +13,7 @@ import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -74,9 +75,9 @@ public class SwerveBase extends SubsystemBase {
         SmartDashboard.putNumber("setDistance", 1);
         SmartDashboard.putNumber("setAngle",90);
         SmartDashboard.putNumber("setDirection",0);
+        Shuffleboard.getTab("Drive Time").add("Gyro", gyro);
 
     }
-
     public void wheelsIn() {
   //      SmartDashboard.putNumber("wheelin Counter",wheelinCounter++);
         swerveMods[0].setDesiredState(new SwerveModuleState(2, Rotation2d.fromDegrees(45)), false);
@@ -307,6 +308,7 @@ public class SwerveBase extends SubsystemBase {
             mod.setPosition(setAngle * Constants.Swerve.turnRatio);
         } 
     }
+
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) 
     {

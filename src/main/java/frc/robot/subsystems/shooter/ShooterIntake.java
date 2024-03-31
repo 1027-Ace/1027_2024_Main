@@ -2,6 +2,7 @@ package frc.robot.subsystems.shooter;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -28,7 +29,7 @@ public class ShooterIntake extends SubsystemBase{
     }
 
     public Command Auto_Intake_Command(){
-        return this.runOnce(() -> Intake());
+        return new InstantCommand(this::Intake);
     }
 
     public void Outtake() {

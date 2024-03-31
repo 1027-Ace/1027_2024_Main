@@ -1,13 +1,11 @@
 package frc.robot.subsystems.LimeLight;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-public class LLVisionSystem {
+public class LLDashBoard {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
@@ -18,11 +16,27 @@ public class LLVisionSystem {
     double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
 
+    public double getAprilTagX(){
+        return x;
+    }
+    public double getAprilTagY(){
+        return y;
+    }
+    public double getAprilTagArea(){
+        return area;
+    }
     //post to smart dashboard periodically
     /*
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
     */
-    //Shuffleboard.putNumber("LimelightX", x);
+    public LLDashBoard(){
+        //Shuffleboard.getTab("Drive Time").add("LimelightX", x);
+        //Shuffleboard.getTab("Drive Time").add("Limelight Y", y);
+        //Shuffleboard.getTab("Drive Time").add("LimelightArea", area);
+        //Shuffleboard.getTab("Drive Time").add("Limelight Stream",limelightFeed);
+        //CameraServer.startAutomaticCapture("limelightfeed","http://limelight.local:5800/stream.mjpg");
+        
+    }
 }

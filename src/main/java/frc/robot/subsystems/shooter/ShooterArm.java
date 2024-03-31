@@ -23,48 +23,40 @@ public class ShooterArm extends SubsystemBase{
     private final double autoDelay = 0.15;
 
     public ShooterArm(int motorCANId) {
-        //this.motor = new TalonSRX(motorCANId);
         this.motor = new TalonFX(motorCANId);
     }
 
     public void shoot() {
-        //motor.set(ControlMode.PercentOutput, MAX_SPEED);
         motor.set(MAX_SPEED);
-        //motor.setPosition(3);
-        //motor.setControl(0.5);
-        // Schedule a task to stop the motor after 0.05 seconds
-        //new WaitCommand(delay);
+        //new WaitCommand(delay).schedule();
         Timer.delay(delay);
-        //motor.set(ControlMode.PercentOutput, 0); 
-        /* 
-        Timer.delay(1);
-        motor.set(ControlMode.PercentOutput, -MAX_SPEED);
-        Timer.delay(delay);
-        motor.set(ControlMode.PercentOutput, 0);
-        */
-        motor.stopMotor(); // Stop te motor'
-        //new WaitCommand(delay);
-        Timer.delay(5);
+        motor.stopMotor(); 
+        //new WaitCommand(0.1).schedule();
+        Timer.delay(0.1);
+        //Starts Return sequence
         motor.set(-MAX_SPEED/6);
-        //new WaitCommand(delay);
+        //new WaitCommand(delay*5).schedule();
         Timer.delay(delay*5);
         motor.stopMotor();
     }
 
     public void auto_shoot(){
         motor.set(MAX_SPEED);
+        //new WaitCommand(autoDelay).schedule();
         Timer.delay(autoDelay);
         motor.stopMotor();
-
+        //new WaitCommand(0.1).schedule();
+        //Starts return sequence
         Timer.delay(0.1);
         motor.set(-MAX_SPEED/6);
+        //new WaitCommand(delay*5).schedule();
         Timer.delay(delay*5);
         motor.stopMotor();
     }
 
     public Command shootCommand(){
-        return this.runOnce(()-> auto_shoot());
-        //return new InstantCommand(() -> shoot());
+        //return this.runOnce(()-> auto_shoot());
+        return new InstantCommand(this::auto_shoot);
     }
     public void stopShooter(){
         motor.stopMotor();

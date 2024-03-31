@@ -1,10 +1,15 @@
 package frc.robot.commands;
 
+import static frc.robot.Constants.Swerve.drivePower;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
@@ -15,18 +20,24 @@ import frc.robot.subsystems.swerve.SwerveBase;
 
 public class Auto_TwoNote extends SequentialCommandGroup {
     private boolean AllianceColor = false;
+    private SwerveBase swerve;
 
     public Auto_TwoNote(SwerveBase swerve){
+        this.swerve = swerve;
         addCommands(
             new ShooterArm(39).shootCommand(),
-            new WaitCommand(1),
+            new WaitCommand(0.5),
+            new PrintCommand("ARM IS SHOT AND NOW TO WAIT FOR DRIVE"),
             
             new DriveToPoseCommand(
                 swerve, 
                 swerve::getPose, 
                 new Pose2d(-2, 0, Rotation2d.fromDegrees(180)), 
-                AllianceColor)
-            
+                AllianceColor),
+            new PrintCommand("DRIVE TO POSE IS COMPLETE, ONTO THE NEXT THING"),
+            new FetalPositionCommand(),
+            new PrintCommand("FETAL POSITION COMMAND IS COMPLETE")
+            //new WaitCommand(3)
             /*
             new InstantCommand(() -> RobotContainer.intakeobj.Intake()),
             new DriveToPoseCommand(
