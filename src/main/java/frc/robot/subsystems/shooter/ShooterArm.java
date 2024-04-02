@@ -36,21 +36,21 @@ public class ShooterArm extends SubsystemBase{
         //Starts Return sequence
         motor.set(-MAX_SPEED/6);
         //new WaitCommand(delay*5).schedule();
-        Timer.delay(delay*5);
+        Timer.delay(delay*4.3);
         motor.stopMotor();
     }
 
     public void auto_shoot(){
         motor.set(MAX_SPEED);
-        //new WaitCommand(autoDelay).schedule();
-        Timer.delay(autoDelay);
+        new WaitCommand(autoDelay).schedule();
+        //Timer.delay(autoDelay);
         motor.stopMotor();
-        //new WaitCommand(0.1).schedule();
+        new WaitCommand(0.1).schedule();
         //Starts return sequence
-        Timer.delay(0.1);
+        //Timer.delay(0.1);
         motor.set(-MAX_SPEED/6);
-        //new WaitCommand(delay*5).schedule();
-        Timer.delay(delay*5);
+        new WaitCommand(delay*5).schedule();
+        //Timer.delay(delay*5);
         motor.stopMotor();
     }
 

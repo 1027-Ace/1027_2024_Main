@@ -137,7 +137,9 @@ public class RobotContainer {
 
     //List of availble Auto's
     Auto_DoNothing DoNothing = new Auto_DoNothing();
-    InstantCommand ShootOnly = new InstantCommand(() -> shooter.shoot());
+    //InstantCommand ShootOnly = new InstantCommand(() -> shooter.auto_shoot());
+    //Command ShootOnly = shooter.shootCommand();
+    Auto_ShootOnly ShootOnly = new Auto_ShootOnly();
     Auto_OneNote onenote = new Auto_OneNote(s_Swerve);
     Auto_TwoNote twonote = new Auto_TwoNote(s_Swerve);
     
@@ -168,12 +170,12 @@ public class RobotContainer {
         //movementChooser.addOption("Nothing", new InstantCommand());
         AutonomousChooser = new SendableChooser<>();
         AutonomousChooser.setDefaultOption("Nothing", "nothing");
-        AutonomousChooser.addOption("Shoot Only", "ShootOnly");
+        AutonomousChooser.addOption("(FAIL) Shoot Only", "ShootOnly");
         //movementChooser.addOption("Taxi", autoMoveCommand);
         AutonomousChooser.addOption("Taxi", "autoMoveCommand");
         //movementChooser.addOption("Shoot", Shoot_Auto);
-        AutonomousChooser.addOption("One Note", "onenote");
-        AutonomousChooser.addOption("Two Note", "twonote");
+        AutonomousChooser.addOption("(FAIL) One Note", "onenote");
+        AutonomousChooser.addOption("(FAIL) Two Note", "twonote");
         //movementChooser.addOption("autoAngleDrive", autoAngleDrive);
         //movementChooser.addOption("autoCameraDrive", autoAngleDrive);
         //CameraServer.startAutomaticCapture("limelightfeed","http://limelight.local:5800");
